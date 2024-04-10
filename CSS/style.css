@@ -1,0 +1,47 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+}
+
+
+form {
+
+  display: flex;
+  gap: 10px;
+}
+
+input {
+  padding: 10px;
+  outline: 0;
+}
+
+button {
+  padding: 10px;
+  cursor: pointer;
+}
+
+#res {
+  margin-top: 20px;
+}
+
+.row {
+  position: relative;
+  height: 270px;
+  margin-bottom: 20px;
+}
+
+.row img {
+  position: absolute;
+  width: 600px;
+  height: 100%;
+}
+
+.row h1 {
+  font-size: 70px;
+  position: absolute;
+  right: 10%;
+  top: 50%;
+  transform: translateY(-50%);
+} 
