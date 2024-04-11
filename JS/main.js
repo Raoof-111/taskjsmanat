@@ -1,58 +1,54 @@
+function addRow() {
+    var table = document.getElementById("myTable").getElementsByTagName('tbody')[0];
+    var newRow = table.insertRow(table.rows.length);
+    var cellNum = newRow.insertCell(0);
+    var cellName = newRow.insertCell(1);
+    var cellSurname = newRow.insertCell(2);
+    var cellAge = newRow.insertCell(3);
+    var cellActions = newRow.insertCell(4);
+    
+    cellNum.innerHTML = table.rows.length;
+    cellName.innerHTML = '<input type="text">';
+    cellSurname.innerHTML = '<input type="text">';
+    cellAge.innerHTML = '<input type="number">';
+    cellActions.innerHTML = '<button onclick="editRow(this)">Düzəliş Et</button>' +
+                            '<button onclick="deleteRow(this)">Sil</button>';
+}
 
+function deleteRow(button) {
+    var row = button.parentNode.parentNode;
+    row.parentNode.removeChild(row);
+    updateRowNumbers();
+}
 
-
-
-
-const inp = document.querySelector("#inp");
-const form = document.querySelector("#form");
-const res = document.querySelector("#res");
-const money = [500, 200, 100, 50, 20, 10, 5, 1];
-
-form.addEventListener("click", (e) => {
-  e.preventDefault();
-  res.innerHTML = "";
-  let mebleg = +inp.value;
-  money.map((mny) => {
-    let say = Math.trunc(mebleg / mny);
-    if (say) {
-      mebleg = mebleg - say * mny;
- 
-      const row = document.createElement("div");
-      row.classList.add("row");
-   
-      for (let i = 0; i < say && i < 5; i++) {
-        const image = document.createElement("img");
-        image.src =`./images/${mny}.jpg` ;
-        image.style.left = `${i * 60}px`;
-        row.append(image);
-      }
-      if (say - 5 > 0) {
-        const h1 = document.createElement("h1");
-        h1.textContent = `${say - 5}X`;
-        row.append(h1);
-      }
-      res.append(row);
+function updateRowNumbers() {
+    var table = document.getElementById("myTable").getElementsByTagName('tbody')[0];
+    var rows = table.rows;
+    for (var i = 0; i < rows.length; i++) {
+        rows[i].cells[0].innerHTML = i + 1;
     }
-  });
-});
+}
 
+function editRow(button) {
+    var row = button.parentNode.parentNode;
+    var cells = row.cells;
+    for (var i = 1; i < cells.length - 1; i++) {
+        var oldValue = cells[i].innerText;
+        cells[i].innerHTML = '<input type="text" value="' + oldValue + '">';
+    }
+    var editButton = row.querySelector('button:nth-of-type(1)');
+    editButton.innerHTML = 'Yadda Saxla';
+    editButton.setAttribute('onclick', 'saveChanges(this)');
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+function saveChanges(button) {
+    var row = button.parentNode.parentNode;
+    var cells = row.cells;
+    for (var i = 1; i < cells.length - 1; i++) {
+        var newValue = cells[i].querySelector('input').value;
+        cells[i].innerHTML = newValue;
+    }
+    var editButton = row.querySelector('button:nth-of-type(1)');
+    editButton.innerHTML = 'Düzəliş Et';
+    editButton.setAttribute('onclick', 'editRow(this)');
+}
